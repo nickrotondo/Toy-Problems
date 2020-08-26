@@ -18,8 +18,27 @@
 *
 */
 
-var rockPaperScissors = function (
-) {
-  // TODO: your solution here
+var rockPaperScissors = function (rounds) {
+  // Set up options array
+  var plays = ['R', 'P', 'S'];
+  // set results array
+  var results = [];
+  // set up function to call recursively on each combination of options. Pass in rounds and a possibilities array
+  var optionsFinder = function(rounds, possibilities) {
+    // if rounds = 0
+    if (rounds === 0) {
+      // push possibilites array to results array
+      results.push(possibilities.join(''));
+    } else {
+      // for each option
+      plays.forEach(function(play) {
+        // call recursive function and pass in rounds-1 and the concatted possibilites array
+        optionsFinder((rounds - 1), possibilities.concat(play));
+      })
+    }
+  }
+  // initialize the recursion
+  optionsFinder(rounds, []);
+  // return results array
+  return results;
 };
-
