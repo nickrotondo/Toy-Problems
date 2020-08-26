@@ -19,6 +19,7 @@
 */
 
 var rockPaperScissors = function (rounds) {
+  var rounds = rounds || 3
   // Set up options array
   var plays = ['R', 'P', 'S'];
   // set results array
