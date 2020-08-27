@@ -22,16 +22,16 @@
 * return null if no even occurance is found
 */
 var evenOccurrence = function(arr) {
-  var occurancesStorage = {};
+  var occurrenceStorage = {};
   for (var i = 0; i < arr.length; i++) {
-    if (occurancesStorage[arr[i]] === undefined) {
-      occurancesStorage[arr[i]] = 1;
+    if (occurrenceStorage[arr[i]] === undefined) {
+      occurrenceStorage[arr[i]] = 1;
     } else {
-      occurancesStorage[arr[i]] += 1;
+      occurrenceStorage[arr[i]] += 1;
     }
   }
   for (var j = 0; j < arr.length; j++) {
-    if (occurancesStorage[arr[j]] % 2 === 0) {
+    if (occurrenceStorage[arr[j]] % 2 === 0) {
       return arr[j];
     }
   }
