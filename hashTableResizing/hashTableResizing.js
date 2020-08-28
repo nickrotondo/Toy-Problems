@@ -53,11 +53,12 @@ var makeHashTable = function() {
     if (!found) {
       // insert new key and value as tuple in bucket
       result.storage[storageIndex].push([key, value]);
+      result.size++;
+      // Resize:
+      if (result.size > result.storageLimit * .75) {
+        result.resize(result.storageLimit * 2);
+      }
     }
-
-    // increment size
-    result.size++;
-
   };
 
   result.retrieve = function( key ) {
@@ -89,28 +90,49 @@ var makeHashTable = function() {
     var storageIndex = getIndexBelowMaxForKey(key, result.storageLimit);
     var bucket = result.storage[storageIndex]
 
-    // if only one tuple in bucket and the key matches the tuple key
-    if (bucket.length === 1 && bucket[0][0] === key) {
-        // delete the bucket
-        delete result.storage[storageIndex];
-    } else {
-      // iterate over bucket
-      for (var i = 0; i < bucket.length; i++) {
-        var tuple = bucket[i];
-        // if the key exists in the bucket
-        if (tuple[0] === key) {
-          // delete the tuple
-          result.storage[storageIndex].splice(i, 1);
-          return tuple[1];
-          // delete result.storage[storageIndex][0];
-          // delete result.storage[storageIndex][1];
+    if ( !bucket ) {
+      return undefined;
+    }
+
+    // iterate over bucket
+    for (var i = 0; i < bucket.length; i++) {
+      var tuple = bucket[i];
+      // if the key exists in the bucket
+      if (tuple[0] === key) {
+        // delete the tuple
+        result.storage[storageIndex].splice(i, 1);
+        return tuple[1];
+        result.size--;
+        // Resize:
+        if (result.size < result.storageLimit * .25) {
+          result.resize(result.storageLimit / 2);
+        }
+        // delete result.storage[storageIndex][0];
+        // delete result.storage[storageIndex][1];
+      } else {
+        return undefined;
+      }
+    }
+  };
+
+  result.resize = function( newLimit ) {
+    var oldStorage = result.storage;
+    result.storage = [];
+    result.storageLimit = newLimit;
+    result.size = 0;
+
+    // iterate over old storage
+    for (var i = 0; i < oldStorage.length; i ++) {
+      // if current bucket is not undefined
+      if (oldStorage[i] !== undefined) {
+        // iterare over bucket
+        for (var j = 0; j < oldStorage[i].length; j++) {
+          // call insert on each tuple key value pair
+          result.insert(oldStorage[i][j][0], oldStorage[i][j][1]);
         }
       }
     }
-
-    // decrement storage size
-    result.size--;
-  };
+  }
 
   return result;
 };
