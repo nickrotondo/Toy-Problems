@@ -44,7 +44,7 @@ var makeHashTable = function() {
       // if the key exists in the bucket
       if (tuple[0] === key) {
         // update the value
-        result.storage[index][1] = value;
+        result.storage[storageIndex][1] = value;
         found = true;
       }
     }
