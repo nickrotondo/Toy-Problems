@@ -33,7 +33,7 @@
   // add an item to the top of the stack
   Stack.prototype.push = function(value) {
     this.storage[this.end++] = value;
-    if (this.minValue[this.minValue.length - 1] === undefined || this.minValue[this.minValue.length - 1] > value) {
+    if (this.minValue[this.minValue.length - 1] === undefined || this.minValue[this.minValue.length - 1] >= value) {
       this.minValue.push(value);
     }
   };
