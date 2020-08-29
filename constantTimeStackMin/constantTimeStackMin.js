@@ -26,15 +26,15 @@
     // stack end reference
     this.end = 0;
     // min value
-    this.minValue;
+    this.minValue = [];
 
   };
 
   // add an item to the top of the stack
   Stack.prototype.push = function(value) {
     this.storage[this.end++] = value;
-    if (this.minValue === undefined || this.minValue > value) {
-      this.minValue = value;
+    if (this.minValue[this.minValue.length - 1] === undefined || this.minValue[this.minValue.length - 1] > value) {
+      this.minValue.push(value);
     }
   };
 
@@ -44,6 +44,9 @@
       this.end--
       var popped = this.storage[this.end];
       delete this.storage[this.end];
+      if (this.minValue[this.minValue.length - 1] === popped) {
+        this.minValue.splice(-1, 1);
+      }
       return popped;
     }
   };
@@ -55,5 +58,5 @@
 
   // return the minimum value in the stack
   Stack.prototype.min = function() {
-    return this.minValue;
+    return this.minValue[this.minValue.length - 1];
   };
