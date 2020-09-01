@@ -34,5 +34,21 @@
 
 
 var bubbleSort = function(array) {
-  // Your code here.
+  // iterate over the array
+  for (var i = 0; i < array.length; i++) {
+    // iterate for each element in array
+    for (var j = 0; j < array.length; j++) {
+      // save the current element
+      var current = array[j];
+      // if the current element is greater than the next element,
+      if (array[j] > array[j + 1]) {
+        // swap the two elements
+        array[j] = array[j + 1];
+        array[j + 1] = current;
+      }
+    }
+  }
+  // return the array
+  return array;
 };
+
