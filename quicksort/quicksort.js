@@ -12,4 +12,23 @@
 
 
 var quicksort = function(array) {
+
+  if (array.length < 2) {
+    return array;
+  }
+
+  var pivot = array[0];
+  var lowerHalf = [];
+  var upperHalf = [];
+
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] < pivot) {
+      lowerHalf.push(array[i]);
+    } else if (array[i] > pivot ) {
+      upperHalf.push(array[i]);
+    }
+  }
+
+  return quicksort(lowerHalf).concat(pivot, quicksort(upperHalf));
+
 };
