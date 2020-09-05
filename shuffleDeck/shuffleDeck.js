@@ -32,8 +32,22 @@
  */
 
 var shuffleDeck = function(deck) {
-  // Your code here
+
+  for (var i = 0; i < deck.length; i++) {
+    var currentCard = deck[i];
+    var indexToSwap = Math.floor(Math.random() * (52));
+    var cardToSwap = deck[indexToSwap];
+    deck[i] = cardToSwap;
+    deck[indexToSwap] = currentCard;
+  }
+
+  return deck;
+
 };
+
+var cardSwapper = function(firstCard, secondCard) {
+  var
+}
 
 // Ordered deck generator provided for your testing convenience
 // (You may alter this function, but an unaltered copy will be used for tests.)
