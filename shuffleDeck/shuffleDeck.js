@@ -35,7 +35,7 @@ var shuffleDeck = function(deck) {
 
   for (var i = 0; i < deck.length; i++) {
     var currentCard = deck[i];
-    var indexToSwap = Math.floor(Math.random() * (52));
+    var indexToSwap = Math.floor(Math.random() * (52 - i) + i);
     var cardToSwap = deck[indexToSwap];
     deck[i] = cardToSwap;
     deck[indexToSwap] = currentCard;
