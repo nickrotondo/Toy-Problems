@@ -45,10 +45,6 @@ var shuffleDeck = function(deck) {
 
 };
 
-var cardSwapper = function(firstCard, secondCard) {
-  var
-}
-
 // Ordered deck generator provided for your testing convenience
 // (You may alter this function, but an unaltered copy will be used for tests.)
 var orderedDeck = function() {
