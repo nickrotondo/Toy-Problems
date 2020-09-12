@@ -46,6 +46,7 @@ var telephoneWords = function(digitString) {
 
   var wordFinder = function(word, digitsLeft) {
     if (digitsLeft.length === 0) {
+      if (word)
       results.push(word);
       return;
     }
