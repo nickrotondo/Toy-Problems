@@ -16,13 +16,17 @@ var binarySearch = function (array, target) {
 
   var findIt = (array, start, end, target) => {
     var searchIndex = Math.floor((end + start) / 2);
-    if (start === end) {
-      return;
-    }
+    // Check for match:
     if (array[searchIndex] === target) {
       result = searchIndex;
       return;
-    } else if (array[searchIndex] > target) {
+    }
+    // Base:
+    if (start === end) {
+      return;
+    }
+    // Eliminate lower or upper half and search again:
+    if (array[searchIndex] > target) {
       findIt(array, start, searchIndex - 1, target);
     } else {
       findIt(array, searchIndex + 1, end, target);
