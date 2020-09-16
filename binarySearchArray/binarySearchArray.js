@@ -12,6 +12,27 @@
 
 var binarySearch = function (array, target) {
 
+  var start = 0;
+  var end = array.length - 1;
+
+  while (start <= end) {
+    var searchIndex = Math.floor((start + end) / 2);
+
+    if (array[searchIndex] === target) {
+      return searchIndex;
+    } else if (array[searchIndex] > target) {
+      end = searchIndex - 1
+    } else {
+      start = searchIndex + 1;
+    }
+  }
+
+  return null;
+
+
+  /*
+   * --- RECURSIVE ---
+
   var result = null;
 
   var findIt = (array, start, end, target) => {
@@ -36,6 +57,7 @@ var binarySearch = function (array, target) {
   findIt(array, 0, array.length - 1, target);
 
   return result;
+  */
 
 };
 
