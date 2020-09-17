@@ -38,8 +38,27 @@ var Tree = function(value) {
 };
 
 Tree.prototype.countLeaves = function () {
-  // TODO: implement me!
+  var leafCount = 0;
+
+  var leafCounter = function(node) {
+    // Base:
+    if (node.children.length === 0) {
+      leafCount++;
+      return;
+    }
+    // Iterate through children array
+    for (var i = 0; i < node.children.length; i++) {
+      // Call leaf counter on each child
+      leafCounter(node.children[i]);
+    }
+  }
+
+  // initialize leaf counter, passing in this (root)
+  leafCounter(this);
+
+  return leafCount;
 };
+
 
 /**
   * You shouldn't need to change anything below here, but feel free to look.
