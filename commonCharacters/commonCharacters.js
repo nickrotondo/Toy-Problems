@@ -26,11 +26,9 @@ var commonCharacters = function(string1, string2) {
     if (string1[i] === ' ') {
       continue;
     }
-    for (let j = 0; j < string2.length; j++) {
-      if (string1[i] === string2[j] && results.indexOf(string1[i]) === -1) {
-        results.push(string1[i]);
-        break;
-      }
+    if (string2.indexOf(string1[i]) !== -1 && results.indexOf(string1[i]) === -1) {
+      results.push(string1[i]);
+      continue;
     }
   }
 
