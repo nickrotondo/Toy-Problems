@@ -79,6 +79,13 @@ BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
 
+// Swap nodes
+BinaryHeap.prototype.swapNodesAt = function(index, parentIndex) {
+  var parent = this._heap[parentIndex];
+  this._heap[parentIndex] = this._heap[index];
+  this._heap[index] = parent;
+}
+
 BinaryHeap.prototype.insert = function (value) {
 
   this._heap.push(value);
@@ -95,51 +102,45 @@ BinaryHeap.prototype.insert = function (value) {
   }
 }
 
-BinaryHeap.prototype.removeRoot = function () {
-  // Swap the root node with the last node
-  // remove the last node
-  // While the root is greater than both it's children
-    // if root is less than first child
-      // switch places
-    // if it's less than second child
-      // switch places
+BinaryHeap.prototype.removeRoot = function() {
+  var root = this.getRoot();
+  var lastNode = this._heap[this._heap.length - 1];
+  this.swapNodesAt(0, this._heap.length - 1);
+  this._heap.pop();
 
-  let root = this.getRoot();
-  let value = this._heap[this._heap.length - 1];
-  let valueIndex = 0;
-  this._heap[valueIndex] = value;
-  delete this._heap[this._heap.length - 1];
-  let childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
-  while (!this._compare(value, this._heap[childrenIndices[0]]) && !this._compare(value, this._heap[childrenIndices[1]]) && (childrenIndices[0] <= this._heap.length && childrenIndices[1] <= this._heap.length)) {
-    if (value > this._heap[childrenIndices[0]]) {
-      this._heap[valueIndex] = this._heap[childrenIndices[0]];
-      this._heap[childrenIndices[0]] = value;
-      valueIndex = childrenIndices[0];
-      childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
-    } else if (value > this._heap[childrenIndices[1]]) {
-      this._heap[valueIndex] = this._heap[childrenIndices[1]];
-      this._heap[childrenIndices[1]] = value;
-      valueIndex = childrenIndices[1];
-      childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
+  var newRoot = this.getRoot();
+  var index = 0;
+  var child1 = this._heap[1];
+  var child2 = this._heap[2];
+  while (child1 !== undefined && child2 !== undefined && (newRoot > child1 || newRoot > child2)) {
+    if (child1 <= child2) {
+      this.swapNodesAt(index * 2 + 1, index);
+      newRoot = this._heap[index * 2 + 1];
+      index = index * 2 + 1;
+      child1 = this._heap[index * 2 + 1];
+      child2 = this._heap[index * 2 + 2];
+    } else {
+      this.swapNodesAt(index * 2 + 2, index);
+      newRoot = this._heap[index * 2 + 2];
+      index = index * 2 + 2;
+      child1 = this._heap[index * 2 + 1];
+      child2 = this._heap[index * 2 + 2];
     }
   }
 }
 
-// let exampleHeap = new BinaryHeap();
-// exampleHeap.insert(3);
-// console.log(exampleHeap._heap);
-// exampleHeap.insert(2);
-// console.log(exampleHeap._heap);
-// exampleHeap.insert(1);
-// console.log(exampleHeap._heap);
-// exampleHeap.insert(4);
-// exampleHeap.insert(6);
-// exampleHeap.insert(5);
-// exampleHeap.insert(7);
-// exampleHeap.insert(8);
-// console.log(exampleHeap._heap);
-// exampleHeap.removeRoot();
-// console.log(exampleHeap._heap);
-
-
-// NOT COMPLETE — Infinite loop on removeRoot()
+let exampleHeap = new BinaryHeap();
+exampleHeap.insert(3);
+console.log(exampleHeap._heap);
+exampleHeap.insert(2);
+console.log(exampleHeap._heap);
+exampleHeap.insert(1);
+console.log(exampleHeap._heap);
+exampleHeap.insert(4);
+exampleHeap.insert(6);
+exampleHeap.insert(5);
+exampleHeap.insert(7);
+exampleHeap.insert(8);
+console.log(exampleHeap._heap);
+exampleHeap.removeRoot();
+console.log(exampleHeap._heap);
