@@ -10,7 +10,7 @@
  * parent of the 3rd and 4th nodes, and the 2nd node will be the parent of the 5th and
  * 6th nodes. In a specific kind of binary heap, the binary min heap, every node is
  * less than its immediate children:
- * 
+ *
  *          0
  *     1         2
  *   3   4     5   6
@@ -47,6 +47,7 @@
  * You can see a great visualization of a binary min heap in action here, play around with it until you can
  * easily guess how the heap will behave with both insertion and removal:
  * https://www.cs.usfca.edu/~galles/visualization/Heap.html
+ *
  */
 
 
@@ -78,10 +79,69 @@ BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
 
+     1
+   3   2
+   [1, 3, 2]
+
 BinaryHeap.prototype.insert = function (value) {
-  // TODO: Your code here
+
+  this._heap.push(value);
+
+  if (this._heap.length > 1) {
+    let valueIndex = this._heap.length - 1;
+    let parentIndex = Math.floor((valueIndex - 1) / 2);
+    while (this._compare(value, this._heap[parentIndex])) {
+      this._heap[valueIndex] = this._heap[parentIndex];
+      this._heap[parentIndex] = value;
+      valueIndex = parentIndex;
+      parentIndex = Math.floor((valueIndex - 1) / 2);
+    }
+  }
 }
 
 BinaryHeap.prototype.removeRoot = function () {
-  // TODO: Your code here
+  // Swap the root node with the last node
+  // remove the last node
+  // While the root is greater than both it's children
+    // if root is less than first child
+      // switch places
+    // if it's less than second child
+      // switch places
+
+  let root = this.getRoot;
+  let value = this._heap[this._heap.length - 1];
+  let valueIndex = 0;
+  this._heap[valueIndex] = value;
+  delete this._heap[this._heap.length - 1];
+  let childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
+  while (
+    !this._compare(value, this._heap[childrenIndices[0]]) &&
+    !this._compare(value, this._heap[childrenIndices[1]])
+  ) {
+    if (value < this._heap[childrenIndices[0]]) {
+      this._heap[valueIndex] = this._heap[childrenIndices[0]];
+      this._heap[childrenIndices[0]] = value;
+      valueIndex = childrenIndices[0];
+      childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
+    } else if (value < this._heap[childrenIndices[1]]) {
+      this._heap[valueIndex] = this._heap[childrenIndices[1]];
+      this._heap[childrenIndices[1]] = value;
+      valueIndex = childrenIndices[1];
+      childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
+    }
+  }
 }
+
+// let exampleHeap = new BinaryHeap();
+// exampleHeap.insert(3);
+// console.log(exampleHeap._heap);
+// exampleHeap.insert(2);
+// console.log(exampleHeap._heap);
+// exampleHeap.insert(1);
+// console.log(exampleHeap._heap);
+// exampleHeap.insert(4);
+// exampleHeap.insert(6);
+// exampleHeap.insert(5);
+// exampleHeap.insert(7);
+// exampleHeap.insert(8);
+// console.log(exampleHeap._heap);
