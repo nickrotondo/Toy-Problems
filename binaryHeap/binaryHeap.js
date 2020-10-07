@@ -79,10 +79,6 @@ BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
 
-     1
-   3   2
-   [1, 3, 2]
-
 BinaryHeap.prototype.insert = function (value) {
 
   this._heap.push(value);
