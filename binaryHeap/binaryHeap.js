@@ -106,7 +106,7 @@ BinaryHeap.prototype.removeRoot = function() {
   var root = this.getRoot();
   var lastNode = this._heap[this._heap.length - 1];
   this.swapNodesAt(0, this._heap.length - 1);
-  this._heap.pop();
+  let removedNode = this._heap.pop();
 
   var newRoot = this.getRoot();
   var index = 0;
@@ -127,6 +127,7 @@ BinaryHeap.prototype.removeRoot = function() {
       child2 = this._heap[index * 2 + 2];
     }
   }
+  return removedNode;
 }
 
 let exampleHeap = new BinaryHeap();
