@@ -104,22 +104,19 @@ BinaryHeap.prototype.removeRoot = function () {
     // if it's less than second child
       // switch places
 
-  let root = this.getRoot;
+  let root = this.getRoot();
   let value = this._heap[this._heap.length - 1];
   let valueIndex = 0;
   this._heap[valueIndex] = value;
   delete this._heap[this._heap.length - 1];
   let childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
-  while (
-    !this._compare(value, this._heap[childrenIndices[0]]) &&
-    !this._compare(value, this._heap[childrenIndices[1]])
-  ) {
-    if (value < this._heap[childrenIndices[0]]) {
+  while (!this._compare(value, this._heap[childrenIndices[0]]) && !this._compare(value, this._heap[childrenIndices[1]]) && (childrenIndices[0] <= this._heap.length && childrenIndices[1] <= this._heap.length)) {
+    if (value > this._heap[childrenIndices[0]]) {
       this._heap[valueIndex] = this._heap[childrenIndices[0]];
       this._heap[childrenIndices[0]] = value;
       valueIndex = childrenIndices[0];
       childrenIndices = [valueIndex * 2 + 1, valueIndex * 2 + 2]
-    } else if (value < this._heap[childrenIndices[1]]) {
+    } else if (value > this._heap[childrenIndices[1]]) {
       this._heap[valueIndex] = this._heap[childrenIndices[1]];
       this._heap[childrenIndices[1]] = value;
       valueIndex = childrenIndices[1];
@@ -141,3 +138,8 @@ BinaryHeap.prototype.removeRoot = function () {
 // exampleHeap.insert(7);
 // exampleHeap.insert(8);
 // console.log(exampleHeap._heap);
+// exampleHeap.removeRoot();
+// console.log(exampleHeap._heap);
+
+
+// NOT COMPLETE — Infinite loop on removeRoot()
