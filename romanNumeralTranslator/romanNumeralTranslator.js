@@ -28,6 +28,28 @@ var DIGIT_VALUES = {
 };
 
 var translateRomanNumeral = function(romanNumeral) {
-// TODO: Implement me!
-
+  if (romanNumeral.length === 0 || typeof romanNumeral !== 'string') {
+    return null;
+  };
+  let result = 0;
+  if (romanNumeral.length === 1) {
+    return DIGIT_VALUES[romanNumeral];
+  } else {
+    let values = [];
+    for (let i = 0; i < romanNumeral.length; i++) {
+      values.push(DIGIT_VALUES[romanNumeral[i]]);
+    };
+    result += values[0];
+    if (values[0] >= values[1]) {
+      result += values[1];
+    } else {
+      result -= values[1];
+    };
+  }
+  return Math.abs(result);
 };
+
+// console.log(translateRomanNumeral('LX'));
+// console.log(translateRomanNumeral('IV'));
+// console.log(translateRomanNumeral(50));
+// console.log(translateRomanNumeral(''));
