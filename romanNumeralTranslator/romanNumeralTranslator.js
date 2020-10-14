@@ -28,28 +28,33 @@ var DIGIT_VALUES = {
 };
 
 var translateRomanNumeral = function(romanNumeral) {
-  if (romanNumeral.length === 0 || typeof romanNumeral !== 'string') {
+  if (typeof romanNumeral !== 'string') {
     return null;
   };
-  let result = 0;
-  if (romanNumeral.length === 1) {
+  result = 0;
+  if (romanNumeral.length === 0) {
+    return 0;
+  } else if (romanNumeral.length === 1) {
     return DIGIT_VALUES[romanNumeral];
   } else {
-    let values = [];
-    for (let i = 0; i < romanNumeral.length; i++) {
-      values.push(DIGIT_VALUES[romanNumeral[i]]);
-    };
-    result += values[0];
-    if (values[0] >= values[1]) {
-      result += values[1];
-    } else {
-      result -= values[1];
-    };
+    for (var i = 0; i < romanNumeral.length; i++) {
+      if (DIGIT_VALUES[romanNumeral[i]] < DIGIT_VALUES[romanNumeral[i+1]]) {
+        result -= DIGIT_VALUES[romanNumeral[i]];
+      } else {
+        result += DIGIT_VALUES[romanNumeral[i]]
+      }
+    }
   }
-  return Math.abs(result);
+  return result;
 };
 
-// console.log(translateRomanNumeral('LX'));
-// console.log(translateRomanNumeral('IV'));
-// console.log(translateRomanNumeral(50));
-// console.log(translateRomanNumeral(''));
+/*
+console.log(translateRomanNumeral('LX'));      // 60
+console.log(translateRomanNumeral('IV'));      // 4
+console.log(translateRomanNumeral(50));        // null
+console.log(translateRomanNumeral(''));        // 0
+console.log(translateRomanNumeral('XIV'));     // 14
+console.log(translateRomanNumeral('MCM'));     // 1900
+console.log(translateRomanNumeral('MCMLIV'));  // 1954
+console.log(translateRomanNumeral('MDCCCCX')); // 1910
+*/
