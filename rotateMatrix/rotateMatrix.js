@@ -48,7 +48,7 @@ var rotateMatrix = function(matrix) {
   let result = [];
   for (let i = 0; i < length; i++) {
     let row = [];
-    let n = length;
+    let n = length - 1;
     for (let j = 0; j < length; j++) {
       row.push(matrix[n][i]);
       n--;
