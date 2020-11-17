@@ -51,7 +51,20 @@ var characterFrequency = function(string) {
     keyValuePair.push(key, characterCount[key])
     result.push(keyValuePair)
   };
-  // sort result array by frequency descending
-  //
+
+  result.sort(function (a, b) {
+    if (a[1] === b[1]) {
+      if (a[0] > b[0]) {
+        return 1;
+      } else if (a[0] < b[0]) {
+        return -1;
+      }
+    } else if (a[1] > b[1]) {
+      return -1;
+    } else if (a[1] < b[1]) {
+      return 1;
+    }
+  });
+
   return result;
 };
