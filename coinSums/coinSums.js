@@ -24,8 +24,26 @@ makeChange(1) === 1
 makeChange(2) === 2
 */
 
-var makeChange = function(total) {
+var makeChange = function (total) {
+  let coins = [1, 2, 5, 10, 20, 50, 100, 200];
+  let count = 0;
 
+  let changeFinder = function (index, value) {
+    let currentCoin = coins[index];
+    if (index === 0) {
+      if (value % currentCoin === 0) {
+        count++;
+      }
+      return;
+    }
+    while (value >= 0) {
+      changeFinder(index - 1, value);
+      value -= currentCoin;
+    }
+  }
+
+  changeFinder(coins.length - 1, total);
+  return count;
 };
 
 
