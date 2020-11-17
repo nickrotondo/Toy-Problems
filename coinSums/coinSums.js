@@ -24,7 +24,7 @@ makeChange(1) === 1
 makeChange(2) === 2
 */
 
-var makeChange = function (total) {
+let makeChange = function (total) {
   let coins = [1, 2, 5, 10, 20, 50, 100, 200];
   let count = 0;
 
@@ -45,5 +45,3 @@ var makeChange = function (total) {
   changeFinder(coins.length - 1, total);
   return count;
 };
-
-
