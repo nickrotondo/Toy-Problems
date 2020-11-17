@@ -37,16 +37,20 @@
 
 
 var characterFrequency = function(string) {
-  // results array
-  // character count object
-  // iterate over string
-    // for each letter, if character is not in object
-      // add to object with count of 0
-    // otherwise
-      // increment count of letter in object
-  // iterate over object
-    // add each key/value pair to an array
-    // push to result array
+  let result = [];
+  let characterCount = {};
+  for (let i = 0; i < string.length; i++) {
+    if (!characterCount[string[i]]) {
+      characterCount[string[i]] = 1;
+    } else {
+      characterCount[string[i]] += 1;
+    }
+  };
+  for (let key in characterCount) {
+    let keyValuePair = [];
+    keyValuePair.push(key, characterCount[key])
+    result.push(keyValuePair)
+  };
   // sort result array by frequency descending
   //
   return result;
