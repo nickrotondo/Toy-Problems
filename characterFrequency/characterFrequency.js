@@ -35,10 +35,10 @@
  *
  */
 
-
 var characterFrequency = function(string) {
   let result = [];
   let characterCount = {};
+  // Add each character and count occurances
   for (let i = 0; i < string.length; i++) {
     if (!characterCount[string[i]]) {
       characterCount[string[i]] = 1;
@@ -46,12 +46,13 @@ var characterFrequency = function(string) {
       characterCount[string[i]] += 1;
     }
   };
+  // Add each key/value pair to an array and add that array to result array
   for (let key in characterCount) {
     let keyValuePair = [];
     keyValuePair.push(key, characterCount[key])
     result.push(keyValuePair)
   };
-
+  // Sort result array by frequency and then alphabetically
   result.sort(function (a, b) {
     if (a[1] === b[1]) {
       if (a[0] > b[0]) {
@@ -65,6 +66,5 @@ var characterFrequency = function(string) {
       return 1;
     }
   });
-
   return result;
 };
