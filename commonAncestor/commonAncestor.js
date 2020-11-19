@@ -38,27 +38,19 @@ Tree.prototype.addChild = function(child) {
   *  3.) between my grandma and my grandma -> my grandma
   *  4.) between me and a potato -> null
   */
-Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
-  Tree.prototype.getClosestCommonAncestor = function(child1, child2){
-    // Get ancestor paths of child1 and child2
-    let path1 = this.getAncestorPath(child1)
-    let path2 = this.getAncestorPath(child2)
-
-    if (!path1 || !path2) return null
-    ancestor = null;
-
-    // Get the shorter length
-    let shorterLength = Math.min(path1.length, path2.length)
-
-    // Compare each index and get the furthest common index
-    for (let i = 0; i < shorterLength; i++) {
-      if (path1[i] === path2[i]) {
-        ancestor = path[i]
-      }
-    }
-
-    return ancestor;
+Tree.prototype.getClosestCommonAncestor = function (node1, node2) {
+  var ancestorPathNode1 = this.getAncestorPath(node1);
+  var ancestorPathNode2 = this.getAncestorPath(node2);
+  if (!ancestorPathNode1 || !ancestorPathNode2) {
+    return null;
   }
+  var closestAncestor = null;
+  for (var i = 0; ancestorPathNode1[i] && ancestorPathNode2[i]; i++) {
+    if (ancestorPathNode1[i] === ancestorPathNode2[i]) {
+      closestAncestor = ancestorPathNode1[i];
+    }
+  }
+  return closestAncestor;
 };
 
 /**
@@ -69,15 +61,14 @@ Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
   * 3.) me.getAncestorPath(me) -> [me]
   * 4.) grandma.getAncestorPath(H R Giger) -> null
   */
-Tree.prototype.getAncestorPath = function(target, path = []) {
-   if (this === target) {
-    path.unshift(this);
-    return path;
+Tree.prototype.getAncestorPath = function(target) {
+  if (this === target) {
+    return [this];
   } else {
     for (var i = 0; i < this.children.length; i++) {
-      if (this.children[i].getAncestorPath(target, path)) {
-        path.unshift(this);
-        return path;
+      var pathFromChild = this.children[i].getAncestorPath(target);
+      if (pathFromChild) {
+        return [this].concat(pathFromChild);
       }
     }
   }
