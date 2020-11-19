@@ -52,10 +52,22 @@ Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
   */
 Tree.prototype.getAncestorPath = function(target, path = []) {
   // Did we find the target?
-    // do soemthing
-  // otherwise
+  if (this === target) {
+    // Add to the path and return path
+    path.unshift(this)
+    return path;
+  } else {
     // iterate over possible decisions (children)
+    for (let i = 0; i < this.children.length; i++) {
       // Make the decision and check if it's valid recursively
+      if (this.children[i].getAncestorPath(target, path)) {
+        path.unshift(this);
+        return path;
+      }
+    }
+  }
+  // if no path, return null
+  return null;
 };
 
 /**
