@@ -5,15 +5,15 @@
   */
 
 /** example usage:
-  * var grandma = new Tree();
-  * var mom = new Tree();
+  * let grandma = new Tree();
+  * let mom = new Tree();
   * grandma.addChild(mom);
-  * var me = new Tree();
+  * let me = new Tree();
   * mom.addChild(me);
   * grandma.getAncestorPath(me); // => [grandma, mom, me]
 */
 
-var Tree = function() {
+const Tree = function() {
   this.children = [];
 };
 
@@ -38,16 +38,22 @@ Tree.prototype.addChild = function(child) {
   *  3.) between my grandma and my grandma -> my grandma
   *  4.) between me and a potato -> null
   */
-Tree.prototype.getClosestCommonAncestor = function (node1, node2) {
-  var ancestorPathNode1 = this.getAncestorPath(node1);
-  var ancestorPathNode2 = this.getAncestorPath(node2);
-  if (!ancestorPathNode1 || !ancestorPathNode2) {
+Tree.prototype.getClosestCommonAncestor = function (child1, child2) {
+  // Get ancestor paths of both descendants
+  let path1 = this.getAncestorPath(child1);
+  if (!path1) {
     return null;
   }
-  var closestAncestor = null;
-  for (var i = 0; ancestorPathNode1[i] && ancestorPathNode2[i]; i++) {
-    if (ancestorPathNode1[i] === ancestorPathNode2[i]) {
-      closestAncestor = ancestorPathNode1[i];
+  let path2 = this.getAncestorPath(child2);
+  if (!path2) {
+    return null;
+  }
+  // Get shorter path
+  let shorterPathLength = Math.min(path1.length, path2.length);
+  let closestAncestor = this;
+  for (let i = 0; i < shorterPathLength; i++) {
+    if (path1[i] === path2[i]) {
+      closestAncestor = path1[i];
     }
   }
   return closestAncestor;
@@ -61,15 +67,18 @@ Tree.prototype.getClosestCommonAncestor = function (node1, node2) {
   * 3.) me.getAncestorPath(me) -> [me]
   * 4.) grandma.getAncestorPath(H R Giger) -> null
   */
-Tree.prototype.getAncestorPath = function(target) {
+Tree.prototype.getAncestorPath = function (target, ancestors = []) {
   if (this === target) {
-    return [this];
-  } else {
-    for (var i = 0; i < this.children.length; i++) {
-      var pathFromChild = this.children[i].getAncestorPath(target);
-      if (pathFromChild) {
-        return [this].concat(pathFromChild);
-      }
+    // I'm the grandchild!
+    ancestors.unshift(this);
+    return ancestors;
+  }
+
+  for (var i = 0; i < this.children.length; i++) {
+    if (this.children[i].getAncestorPath(target, ancestors)) {
+      // one of my children contains the grandchild. add me to the list.
+      ancestors.unshift(this);
+      return ancestors;
     }
   }
   return null;
@@ -84,7 +93,7 @@ Tree.prototype.isDescendant = function(child) {
     // `child` is an immediate child of this tree
     return true;
   } else {
-    for (var i = 0; i < this.children.length; i++) {
+    for (let i = 0; i < this.children.length; i++) {
       if (this.children[i].isDescendant(child)) {
         // `child` is descendant of this tree
         return true;
@@ -98,7 +107,7 @@ Tree.prototype.isDescendant = function(child) {
   * remove an immediate child
   */
 Tree.prototype.removeChild = function(child) {
-  var index = this.children.indexOf(child);
+  let index = this.children.indexOf(child);
   if (index !== -1) {
     // remove the child
     this.children.splice(index, 1);
