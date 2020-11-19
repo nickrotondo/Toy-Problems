@@ -39,7 +39,26 @@ Tree.prototype.addChild = function(child) {
   *  4.) between me and a potato -> null
   */
 Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
+  Tree.prototype.getClosestCommonAncestor = function(child1, child2){
+    // Get ancestor paths of child1 and child2
+    var path1 = this.getAncestorPath(child1)
+    var path2 = this.getAncestorPath(child2)
 
+    if (!path1 || !path2) return null
+    ancestor = null;
+
+    // Get the shorter length
+    var shorterLength = Math.min(path1.length, path2.length)
+
+    // Compare each index and get the furthest common index
+    for (var i = 0; i < shorterLength; i++) {
+      if (path1[i] === path2[i]) {
+        ancestor = path[i]
+      }
+    }
+
+    return ancestor;
+  }
 };
 
 /**
