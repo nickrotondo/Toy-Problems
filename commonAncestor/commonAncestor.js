@@ -31,16 +31,15 @@ Tree.prototype.addChild = function(child) {
 
 /**
   * return the lowest common ancestor of the two child nodes.
-  * (assume for these examples that only a women can be the parent of a child)
+  * (assume for these examples that only a woman can be the parent of a child)
   * more examples:
   *  1.) between me and my brother -> my mom
   *  2.) between me and my cousin -> my grandma
   *  3.) between my grandma and my grandma -> my grandma
   *  4.) between me and a potato -> null
   */
-Tree.prototype.getClosestCommonAncestor = function(/*...*/
-) {
-  // TODO: implement me!
+Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
+
 };
 
 /**
@@ -51,9 +50,12 @@ Tree.prototype.getClosestCommonAncestor = function(/*...*/
   * 3.) me.getAncestorPath(me) -> [me]
   * 4.) grandma.getAncestorPath(H R Giger) -> null
   */
-Tree.prototype.getAncestorPath = function(/*...*/
-) {
-  // TODO: implement me!
+Tree.prototype.getAncestorPath = function(target, path = []) {
+  // Did we find the target?
+    // do soemthing
+  // otherwise
+    // iterate over possible decisions (children)
+      // Make the decision and check if it's valid recursively
 };
 
 /**
