@@ -41,17 +41,17 @@ Tree.prototype.addChild = function(child) {
 Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
   Tree.prototype.getClosestCommonAncestor = function(child1, child2){
     // Get ancestor paths of child1 and child2
-    var path1 = this.getAncestorPath(child1)
-    var path2 = this.getAncestorPath(child2)
+    let path1 = this.getAncestorPath(child1)
+    let path2 = this.getAncestorPath(child2)
 
     if (!path1 || !path2) return null
     ancestor = null;
 
     // Get the shorter length
-    var shorterLength = Math.min(path1.length, path2.length)
+    let shorterLength = Math.min(path1.length, path2.length)
 
     // Compare each index and get the furthest common index
-    for (var i = 0; i < shorterLength; i++) {
+    for (let i = 0; i < shorterLength; i++) {
       if (path1[i] === path2[i]) {
         ancestor = path[i]
       }
@@ -70,22 +70,17 @@ Tree.prototype.getClosestCommonAncestor = function(child1, child2) {
   * 4.) grandma.getAncestorPath(H R Giger) -> null
   */
 Tree.prototype.getAncestorPath = function(target, path = []) {
-  // Did we find the target?
-  if (this === target) {
-    // Add to the path and return path
-    path.unshift(this)
+   if (this === target) {
+    path.unshift(this);
     return path;
   } else {
-    // iterate over possible decisions (children)
-    for (let i = 0; i < this.children.length; i++) {
-      // Make the decision and check if it's valid recursively
+    for (var i = 0; i < this.children.length; i++) {
       if (this.children[i].getAncestorPath(target, path)) {
         path.unshift(this);
         return path;
       }
     }
   }
-  // if no path, return null
   return null;
 };
 
