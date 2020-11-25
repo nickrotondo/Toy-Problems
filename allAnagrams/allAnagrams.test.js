@@ -1,4 +1,5 @@
 describe('allAnagrams', function() {
+
   it('should exist', function() {
     should.exist(allAnagrams);
   });
