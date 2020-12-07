@@ -30,13 +30,33 @@ Constraints:
 */
 
 // BRUTE FORCE:
+// let maxArea = function(height) {
+//   let max = 0;
+//   for (let i = 0; i < height.length; i++) {
+//     for (let j = height.length - 1; j > i; j--) {
+//       let area = (Math.min(height[i], height[j]) * (j - i));
+//       if (area > max) max = area;
+//     }
+//   }
+//   return max;
+// };
+
+// TWO POINTERS:
 let maxArea = function(height) {
-  let max = 0;
-  for (let i = 0; i < height.length; i++) {
-    for (let j = height.length - 1; j > i; j--) {
-      let area = (Math.min(height[i], height[j]) * (j - i));
-      if (area > max) max = area;
+  let max = 0, left = 0, right = height.length - 1;
+  while (left < right) {
+    max = Math.max(max, Math.min(Math.min(height[left], height[right]) * (right - left)));
+    if (height[left] < height[right]) {
+      left++;
+    } else {
+      right --;
     }
   }
   return max;
 };
+
+// TESTS:
+console.log(maxArea([1,8,6,2,5,4,8,3,7])); // 49
+console.log(maxArea([1,1]));               // 1
+console.log(maxArea([4,3,2,1,4]));         // 16
+console.log(maxArea([1,2,1]));             // 2
