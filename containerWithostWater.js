@@ -29,6 +29,14 @@ Constraints:
   0 <= height[i] <= 3 * 10^4
 */
 
-let maxArea = function(heights) {
-
+// BRUTE FORCE:
+let maxArea = function(height) {
+  let max = 0;
+  for (let i = 0; i < height.length; i++) {
+    for (let j = height.length - 1; j > i; j--) {
+      let area = (Math.min(height[i], height[j]) * (j - i));
+      if (area > max) max = area;
+    }
+  }
+  return max;
 };
