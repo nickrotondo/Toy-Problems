@@ -25,38 +25,69 @@
   *  Extra credit: There's a list of English dictionary words at /usr/share/dict/words .
   *  Why not filter your results to only return words contained in that file?
   *
-  */
+*/
 
-var phoneDigitsToLetters = {
+const phoneDigitsToLetters = {
   0: '0',
   1: '1',
-  2: 'ABC',
-  3: 'DEF',
-  4: 'GHI',
-  5: 'JKL',
-  6: 'MNO',
-  7: 'PQRS',
-  8: 'TUV',
-  9: 'WXYZ'
+  2: 'abc',
+  3: 'def',
+  4: 'ghi',
+  5: 'jkl',
+  6: 'mno',
+  7: 'pqrs',
+  8: 'tuv',
+  9: 'wxyz'
 };
 
-
-var telephoneWords = function(digitString) {
-  results = [];
-
-  var wordFinder = function(word, digitsLeft) {
-    if (digitsLeft.length === 0) {
-      if (word)
-      results.push(word);
-      return;
-    }
-    var currentDigitLetters = phoneDigitsToLetters[digitsLeft[0]].split('');
-    currentDigitLetters.forEach((currentLetter) => {
-      wordFinder(word + currentLetter, digitsLeft.slice(1));
-    });
-  }
-
-  wordFinder('', digitString.split(''));
-
+let telephoneWords = function(digits) {
+  if (!digits) return [];
+  let results = [];
+  combinationFinder(digits, 0, '', results);
   return results;
 };
+
+let combinationFinder = function (digits, index, prefix, results) {
+  if (index == digits.length) {
+    results.push(prefix);
+    return;
+  } else {
+    const letters = phoneDigitsToLetters[digits[index]];
+    for (let i = 0; i < letters.length; i++) {
+      combinationFinder(digits, index + 1, prefix + letters[i], results);
+    }
+  }
+}
+
+// const phoneDigitsToLetters = {
+//   0: '0',
+//   1: '1',
+//   2: 'ABC',
+//   3: 'DEF',
+//   4: 'GHI',
+//   5: 'JKL',
+//   6: 'MNO',
+//   7: 'PQRS',
+//   8: 'TUV',
+//   9: 'WXYZ'
+// };
+
+// var telephoneWords = function(digitString) {
+//   var results = [];
+
+//   var wordFinder = function(word, digitsLeft) {
+//     if (digitsLeft.length === 0) {
+//       if (word)
+//       results.push(word);
+//       return;
+//     }
+//     var currentDigitLetters = phoneDigitsToLetters[digitsLeft[0]].split('');
+//     currentDigitLetters.forEach((currentLetter) => {
+//       wordFinder(word + currentLetter, digitsLeft.slice(1));
+//     });
+//   }
+
+//   wordFinder('', digitString.split(''));
+
+//   return results;
+// };
