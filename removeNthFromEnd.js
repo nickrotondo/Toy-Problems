@@ -22,6 +22,37 @@ Constraints:
   1 <= n <= sz
 */
 
-var removeNthFromEnd = function(head, n) {
 
+// Definition for singly-linked list.
+// const ListNode = function (val, next) {
+//   this.val = (val === undefined ? 0 : val)
+//   this.next = (next === undefined ? null : next)
+// }
+
+var removeNthFromEnd = function(head, n) {
+  var dummyHead = new ListNode(0);
+  dummyHead.next = head;
+  var fast = dummyHead;
+  var slow = dummyHead;
+
+  for (let i = 1; i <= n + 1; i++) {
+    fast = fast.next;
+  }
+
+  while (fast !== null) {
+    slow = slow.next;
+    fast = fast.next;
+  }
+
+  slow.next = slow.next.next;
+
+  return dummyHead.next;
 };
+
+// Create dummy head set to value 0 and next = head for a refence to the head
+// set a slow pointer and fast pointer to 0
+// increment fast pointer so it is n ahead of slow pointer
+// while fast is not null
+  // increment fast and slow
+// set slow.next to the next one in order to skip over one item
+// return dummyHead.next which is the original head
