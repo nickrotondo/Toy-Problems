@@ -27,19 +27,46 @@ Constraints:
   -10^9 <= target <= 10^9
 */
 
-// Brute force:
+// Brute force O(n):
 var searchRange = function(nums, target) {
-  var startAndEndIndexes = [];
-  var targetFound = false;
+  var startAndEndIndexes = [], targetFound = false;
   for (var i = 0; i < nums.length; i++) {
     if (nums[i] === target && !targetFound) {
       targetFound = true;
       startAndEndIndexes.push(i);
     }
-    if (nums[i] === target && targetFound && nums[i + 1] !== target) {
-      startAndEndIndexes.push(i);
-    }
+    if (nums[i] === target && targetFound && nums[i + 1] !== target) startAndEndIndexes.push(i);
   }
   if (!targetFound) return [-1, -1];
   else return startAndEndIndexes;
+};
+
+// O(log n) time:
+var searchRange = function (nums, target) {
+  if (!nums) return [-1, -1];
+  if (nums.length === 1) {
+    if (nums[0] === target) return [0, 0];
+    else return [-1, -1];
+  }
+  var start = 0, end = nums.length - 1;
+  var targetFound = false;
+  while (start < end) {
+    var middle = Math.floor(start + (end - start) / 2);
+    if (nums[middle] > target) {
+      end = middle - 1;
+    } else if (nums[middle] < target) {
+      start = middle + 1;
+    } else {
+      start = middle;
+      end = middle;
+    }
+  }
+  if (nums[start] === target) targetFound = true;
+  if (!targetFound) {
+    return [-1, -1];
+  } else {
+    while (nums[start - 1] === target) start--;
+    while (nums[end + 1] === target) end++;
+    return [start, end];
+  }
 };
