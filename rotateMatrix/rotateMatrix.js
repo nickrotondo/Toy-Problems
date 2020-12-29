@@ -43,17 +43,23 @@
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
 
-var rotateMatrix = function(matrix) {
-  let length = matrix.length;
-  let result = [];
-  for (let i = 0; i < length; i++) {
-    let row = [];
-    let n = length - 1;
-    for (let j = 0; j < length; j++) {
-      row.push(matrix[n][i]);
-      n--;
+var rotateMatrix = function (matrix) {
+  let n = matrix.length;
+
+  // transpose matrix
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      let tmp = matrix[j][i];
+      matrix[j][i] = matrix[i][j];
+      matrix[i][j] = tmp;
     }
-    result.push(row);
   }
-  return result;
+  // reverse each row
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n / 2; j++) {
+      let tmp = matrix[i][j];
+      matrix[i][j] = matrix[i][n - j - 1];
+      matrix[i][n - j - 1] = tmp;
+    }
+  }
 };
